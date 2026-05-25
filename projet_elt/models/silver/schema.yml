@@ -3,46 +3,28 @@ version: 2
 models:
   - name: silver_adhesion_detail
     columns:
-      - name: silver_id
-        tests:
-          - unique
-          - not_null
-      - name: num_adhesion_normalise
+      - name: NUM_ADHESION_NORMALISE
         tests:
           - not_null
-      - name: num_beneficiaire_unique
+      - name: NUM_BENEFICIAIRE_UNIQUE
         tests:
           - not_null
-      - name: exercice_paiement
+      - name: EXERCICE_PAIEMENT
         tests:
           - not_null
-      - name: type_beneficiaire
+          - accepted_values:
+              values: [2010, 2011, 2012]
+      - name: TYPE_BENEFICIAIRE
         tests:
           - not_null
           - accepted_values:
               values: ["AS", "CO", "EN"]
-      - name: type_beneficiaire_libelle
-        tests:
-          - not_null
-      - name: categ_formule
-        tests:
-          - not_null
-      - name: primes_acquises
-        tests:
-          - not_null
-      - name: age
-        tests:
-          - not_null
-      - name: gp_age
+      - name: DATE_NAISSANCE_BENEFICIAIRE
         tests:
           - not_null
 
   - name: silver_beneficiaire
     columns:
-      - name: silver_id
-        tests:
-          - unique
-          - not_null
       - name: num_beneficiaire
         tests:
           - not_null
@@ -57,17 +39,13 @@ models:
 
   - name: silver_prestations_sante
     columns:
-      - name: silver_id
-        tests:
-          - unique
-          - not_null
       - name: num_sinistre
         tests:
           - not_null
       - name: num_adhesion
         tests:
           - not_null
-      - name: frais_reel
+      - name: frais_reel_assure
         tests:
           - not_null
       - name: montant_secu
@@ -79,45 +57,33 @@ models:
 
   - name: silver_dept_region
     columns:
-      - name: silver_id
-        tests:
-          - unique
-          - not_null
-      - name: cp
+      - name: departmentcode
         tests:
           - not_null
-      - name: departement
-        tests:
-          - not_null
-      - name: region
+      - name: departmentname
         tests:
           - not_null
 
   - name: silver_meteo
     columns:
-      - name: silver_id
-        tests:
-          - unique
-          - not_null
-      - name: cp
+      - name: departement
         tests:
           - not_null
-      - name: temperature
+      - name: date
+        tests:
+          - not_null
+      - name: tempmin
+        tests:
+          - not_null
+      - name: tempmax
         tests:
           - not_null
 
   - name: silver_contrat
     columns:
-      - name: silver_id
-        tests:
-          - unique
-          - not_null
-      - name: num_adhesion_normalise
+      - name: NUM_ADHESION_NORMALISE
         tests:
           - not_null
-      - name: categ_formule
-        tests:
-          - not_null
-      - name: code_profession
+      - name: CODE_PROFESSION
         tests:
           - not_null

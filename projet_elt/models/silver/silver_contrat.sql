@@ -2,7 +2,7 @@
 
 WITH adhesion_source AS (
     SELECT 
-        NUM_ADHESION_NORMALISE AS num_adhesion_raw,
+        NUM_ADHESION_NORMALISE,
         FORMULE,
         TYPE_BENEFICIAIRE,
         CODE_PROFESSION
@@ -11,20 +11,12 @@ WITH adhesion_source AS (
 
 cleaned_data AS (
     SELECT
-        CAST(num_adhesion_raw AS VARCHAR(100)) AS num_adhesion_normalise,
-        TRIM(REGEXP_REPLACE(FORMULE, '\s+', ' ')) AS formule,
-        SPLIT_PART(TRIM(REGEXP_REPLACE(FORMULE, '\s+', ' ')), ' ', 1) AS categ_formule,
-        TYPE_BENEFICIAIRE AS type_beneficiaire,
-        CODE_PROFESSION AS code_profession
+        CAST(NUM_ADHESION_NORMALISE AS VARCHAR(100)) AS NUM_ADHESION_NORMALISE,
+        TRIM(REGEXP_REPLACE(FORMULE, '\s+', ' ')) AS FORMULE,
+        TYPE_BENEFICIAIRE,
+        CODE_PROFESSION
     FROM adhesion_source
 )
 
-SELECT
-    md5(concat(
-        coalesce(cast(num_adhesion_normalise as text), ''), '-', 
-        coalesce(type_beneficiaire, ''), '-',
-        coalesce(formule, ''),
-        cast(row_number() over() as text)
-    )) AS silver_id,
-    *
+SELECT DISTINCT *
 FROM cleaned_data

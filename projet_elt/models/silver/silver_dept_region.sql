@@ -14,22 +14,12 @@ filtered_data AS (
 
 cleaned_data AS (
     SELECT
-        CAST("departmentcode" AS INTEGER) AS cp,
-        TRIM(
-            REPLACE(
-                REPLACE(
-                    "departmentname",
-                    '', 'è'
-                ),
-                '', 'ç'
-            )
-        ) AS departement,
-        CAST("regioncode" AS INTEGER) AS region_code,
-        TRIM("regionname") AS region
+        CAST("departmentcode" AS INTEGER) AS departmentcode,
+        TRIM("departmentname") AS departmentname,
+        CAST("regioncode" AS INTEGER) AS regioncode,
+        TRIM("regionname") AS regionname
     FROM filtered_data
 )
 
-SELECT DISTINCT
-    md5(concat(coalesce(cast(cp as text), ''), '-', coalesce(departement, ''))) AS silver_id,
-    *
+SELECT DISTINCT *
 FROM cleaned_data

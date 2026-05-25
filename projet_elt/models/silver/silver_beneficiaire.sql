@@ -19,7 +19,5 @@ cleaned_data AS (
       AND regime_social IS NOT NULL
 )
 
-SELECT DISTINCT
-    md5(cast(num_beneficiaire as text)) AS silver_id,
-    *
+SELECT DISTINCT *
 FROM cleaned_data

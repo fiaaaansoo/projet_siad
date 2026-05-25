@@ -15,18 +15,14 @@ filtered_data AS (
 
 cleaned_data AS (
     SELECT
-        CAST("departement" AS VARCHAR) AS cp,
-        TO_DATE("date", 'YYYY-MM-DD') AS date_meteo,
-        (
-            CAST(REPLACE(CAST("tempmin" AS TEXT), ',', '.') AS FLOAT) + 
-            CAST(REPLACE(CAST("tempmax" AS TEXT), ',', '.') AS FLOAT)
-        ) / 2 AS temperature,
-        CAST(REPLACE(CAST("ventmax" AS TEXT), ',', '.') AS FLOAT) AS vent_max,
-        CAST(REPLACE(CAST("precip" AS TEXT), ',', '.') AS FLOAT) AS precipitations
+        CAST("departement" AS VARCHAR) AS departement,
+        TO_DATE("date", 'YYYY-MM-DD') AS date,
+        CAST(REPLACE(CAST("tempmin" AS TEXT), ',', '.') AS FLOAT) AS tempmin,
+        CAST(REPLACE(CAST("tempmax" AS TEXT), ',', '.') AS FLOAT) AS tempmax,
+        CAST(REPLACE(CAST("ventmax" AS TEXT), ',', '.') AS FLOAT) AS ventmax,
+        CAST(REPLACE(CAST("precip" AS TEXT), ',', '.') AS FLOAT) AS precip
     FROM filtered_data
 )
 
-SELECT DISTINCT
-    md5(concat(cast(cp as text), '-', cast(date_meteo as text))) AS silver_id,
-    *
+SELECT DISTINCT *
 FROM cleaned_data
