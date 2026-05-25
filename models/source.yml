@@ -1,0 +1,12 @@
+version: 2
+sources:
+  - name: raw_bronze
+    database: projet_siad_elt
+    schema: public
+    tables:
+      - name: bronze_adhesion_detail
+      - name: bronze_prestations_sante
+      - name: bronze_dept_region
+      - name: bronze_beneficiaire
+      - name: bronze_meteo
+      - name: bronze_classification

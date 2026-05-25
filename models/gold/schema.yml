@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: adresse_dim
+    columns:
+      - name: cp
+        tests:
+          - unique
+          - not_null
+
+  - name: beneficiaire_dim
+    columns:
+      - name: b_id
+        tests:
+          - unique
+          - not_null
+      - name: sexe
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Homme', 'Femme']
+
+  - name: acte_dim
+    columns:
+      - name: "Acte"
+        tests:
+          - unique
+          - not_null
+
+  - name: contrat_dim
+    columns:
+      - name: c_id
+        tests:
+          - unique
+          - not_null
+
+  - name: age_dim
+    columns:
+      - name: age_id
+        tests:
+          - unique
+          - not_null
+
+  - name: temps_dim
+    columns:
+      - name: date_id
+        tests:
+          - unique
+          - not_null
+
+  - name: sinistre_fact
+    columns:
+      - name: b_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('beneficiaire_dim')
+                field: b_id
+      - name: c_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('contrat_dim')
+                field: c_id
+      - name: Acte
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('acte_dim')
+                field: "Acte"
+      - name: cp
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('adresse_dim')
+                field: cp
+      - name: date_soins
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('temps_dim')
+                field: date_id
+      - name: age_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('age_dim')
+                field: age_id

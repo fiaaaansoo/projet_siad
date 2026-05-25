@@ -1,0 +1,161 @@
+version: 2
+
+models:
+  - name: silver_adhesion_detail
+    columns:
+      - name: silver_id
+        tests:
+          - unique
+          - not_null
+      - name: num_adhesion_normalise
+        tests:
+          - not_null
+      - name: num_beneficiaire_unique
+        tests:
+          - not_null
+      - name: sexe
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["M", "F"]
+      - name: regime_social
+        tests:
+          - not_null
+      - name: exercice_paiement
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [2010, 2011, 2012]
+      - name: type_beneficiaire
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["AS", "CO", "EN"]
+      - name: type_beneficiaire_libelle
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Assuré principal", "Conjoint", "Enfant"]
+      - name: code_produit
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["C", "M"]
+      - name: code_produit_libelle
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["Collectif", "Individuel"]
+      - name: code_fractionnement
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["A", "S", "T", "M", "P"]
+      - name: code_fractionnement_libelle
+        tests:
+          - accepted_values:
+              arguments:
+                values: ["Annuel", "Semestriel", "Trimestriel", "Mensuel", "Unique"]
+      - name: categ_formule
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Confort", "Privilege", "TM+"]
+      - name: primes_acquises
+        tests:
+          - not_null
+      - name: date_naissance_beneficiaire
+        tests:
+          - not_null
+      - name: code_garantie
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["NA", "NB", "NC", "ND", "NE", "NF", "N1", "N2", "N3", "N4", "N5", "N6"]
+
+  - name: silver_prestations_sante
+    columns:
+      - name: silver_id
+        tests:
+          - unique
+          - not_null
+      - name: num_sinistre
+        tests:
+          - not_null
+      - name: num_adhesion
+        tests:
+          - not_null
+      - name: frais_reel
+        tests:
+          - not_null
+      - name: montant_secu
+        tests:
+          - not_null
+      - name: montant_rembourse
+        tests:
+          - not_null
+      - name: date_soins
+        tests:
+          - not_null
+      - name: date_remboursements
+        tests:
+          - not_null
+
+  - name: silver_dept_region
+    columns:
+      - name: silver_id
+        tests:
+          - unique
+          - not_null
+      - name: cp
+        tests:
+          - not_null
+      - name: departement
+        tests:
+          - not_null
+      - name: region
+        tests:
+          - not_null
+
+  - name: silver_meteo
+    columns:
+      - name: silver_id
+        tests:
+          - unique
+          - not_null
+      - name: cp
+        tests:
+          - not_null
+      - name: date_meteo
+        tests:
+          - not_null
+      - name: temperature
+        tests:
+          - not_null
+
+  - name: silver_contrat
+    columns:
+      - name: silver_id
+        tests:
+          - unique
+          - not_null
+      - name: c_id
+        tests:
+          - not_null
+      - name: categ_profession
+        tests:
+          - not_null
+      - name: categ_formule
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Confort", "Privilege", "TM+"]
