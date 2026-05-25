@@ -1,5 +1,21 @@
-
+# Environnement et logs
+venv/
+logs/
 target/
 dbt_packages/
-logs/
-dbt_internal_packages/
+dbt_modules/
+.DS_Store
+__MACOSX/
+
+# Données brutes
+Data/
+*.pdf
+
+# Exclusions spécifiques demandées par l'utilisateur
+projet_elt/models/gold/
+AGENTS.md
+projet_elt/README.md
+CM/
+
+# Anciens fichiers de config
+.gitignore_old
