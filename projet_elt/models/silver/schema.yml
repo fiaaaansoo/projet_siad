@@ -3,23 +3,23 @@ version: 2
 models:
   - name: silver_adhesion_detail
     columns:
-      - name: NUM_ADHESION_NORMALISE
+      - name: num_adhesion_normalise
         tests:
           - not_null
-      - name: NUM_BENEFICIAIRE_UNIQUE
+      - name: num_beneficiaire_unique
         tests:
           - not_null
-      - name: EXERCICE_PAIEMENT
+      - name: exercice_paiement
         tests:
           - not_null
           - accepted_values:
               values: [2010, 2011, 2012]
-      - name: TYPE_BENEFICIAIRE
+      - name: type_beneficiaire
         tests:
           - not_null
           - accepted_values:
               values: ["AS", "CO", "EN"]
-      - name: DATE_NAISSANCE_BENEFICIAIRE
+      - name: date_naissance_beneficiaire
         tests:
           - not_null
 
@@ -81,9 +81,9 @@ models:
 
   - name: silver_contrat
     columns:
-      - name: NUM_ADHESION_NORMALISE
+      - name: num_adhesion_normalise
         tests:
           - not_null
-      - name: CODE_PROFESSION
+      - name: code_profession
         tests:
           - not_null

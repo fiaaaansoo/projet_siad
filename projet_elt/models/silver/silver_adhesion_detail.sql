@@ -6,31 +6,31 @@ WITH raw_adhesion AS (
 
 cleaned_data AS (
     SELECT
-        CAST(NUM_ADHESION_NORMALISE AS VARCHAR(100)) AS NUM_ADHESION_NORMALISE,
-        CAST(NUM_BENEFICIAIRE_UNIQUE AS INTEGER) AS NUM_BENEFICIAIRE_UNIQUE,
-        CAST(CODE_POSTAL AS INTEGER) AS CODE_POSTAL,
-        CAST(EXERCICE_PAIEMENT AS INTEGER) AS EXERCICE_PAIEMENT,
-        CAST(NUM_BENEFICIAIRE AS INTEGER) AS NUM_BENEFICIAIRE,
-        TYPE_BENEFICIAIRE,
-        CODE_PRODUIT,
-        CODE_FRACTIONNEMENT,
-        TO_DATE(DATE_NAISSANCE_ASSURE, 'DD/MM/YYYY') AS DATE_NAISSANCE_ASSURE,
-        TO_DATE(DATE_NAISSANCE_BENEFICIAIRE, 'DD/MM/YYYY') AS DATE_NAISSANCE_BENEFICIAIRE,
-        UPPER(CODE_PROFESSION) AS CODE_PROFESSION,
-        CODE_GARANTIE,
-        TRIM(REGEXP_REPLACE(FORMULE, '\s+', ' ')) AS FORMULE,
-        CAST(REPLACE(CAST(PRIMES_ACQUISES AS TEXT), ',', '.') AS FLOAT) AS PRIMES_ACQUISES,
-        CAST(CODE_AGENT AS BIGINT) AS CODE_AGENT,
-        CAST(CODE_REGION AS INTEGER) AS CODE_REGION,
+        CAST(num_adhesion_normalise AS VARCHAR(100)) AS num_adhesion_normalise,
+        CAST(num_beneficiaire_unique AS INTEGER) AS num_beneficiaire_unique,
+        CAST(code_postal AS INTEGER) AS code_postal,
+        CAST(exercice_paiement AS INTEGER) AS exercice_paiement,
+        CAST(num_beneficiaire AS INTEGER) AS num_beneficiaire,
+        type_beneficiaire,
+        code_produit,
+        code_fractionnement,
+        TO_DATE(date_naissance_assure, 'DD/MM/YYYY') AS date_naissance_assure,
+        TO_DATE(date_naissance_beneficiaire, 'DD/MM/YYYY') AS date_naissance_beneficiaire,
+        UPPER(code_profession) AS code_profession,
+        code_garantie,
+        TRIM(REGEXP_REPLACE(formule, '\s+', ' ')) AS formule,
+        CAST(REPLACE(CAST(primes_acquises AS TEXT), ',', '.') AS FLOAT) AS primes_acquises,
+        CAST(code_agent AS BIGINT) AS code_agent,
+        CAST(code_region AS INTEGER) AS code_region,
         CASE
-            WHEN PRIME_GARANTIE = 'Non' THEN 0
-            WHEN PRIME_GARANTIE = 'Oui' THEN 1
-        END AS PRIME_GARANTIE
+            WHEN prime_garantie = 'Non' THEN 0
+            WHEN prime_garantie = 'Oui' THEN 1
+        END AS prime_garantie
     FROM raw_adhesion
 )
 
 SELECT *
 FROM cleaned_data
-WHERE DATE_NAISSANCE_BENEFICIAIRE IS NOT NULL
-  AND EXERCICE_PAIEMENT IS NOT NULL
-  AND (EXERCICE_PAIEMENT - EXTRACT(YEAR FROM DATE_NAISSANCE_BENEFICIAIRE)) >= 0
+WHERE date_naissance_beneficiaire IS NOT NULL
+  AND exercice_paiement IS NOT NULL
+  AND (exercice_paiement - EXTRACT(YEAR FROM date_naissance_beneficiaire)) >= 0
